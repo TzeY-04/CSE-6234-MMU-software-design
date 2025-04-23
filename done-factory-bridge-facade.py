@@ -111,7 +111,61 @@ class SlideFacade:
     def removing_slide(self):
         self.removeslide.remove_slide()
 
+RC_dict = {
+    "Ali Recycle Centre": "Taman Tasik Lolo",
+    "Abu Recycle Centre": "Taman Putra Lili",
+    "New Recycle Centre": "Taman Sauda Lala"
+}
+
+class RC_ManageAddressStrategy:
+    def modify(self, RC_name ,address):
+        pass
+
+class RC_ModifyAddressStrategy(RC_ManageAddressStrategy):
+    def modify(self, RC_name ,address):
+        RC_dict[RC_name] = address
+
+class RC_RemoveAddressStrategy(RC_ManageAddressStrategy):
+    def modify(self, RC_name, address):
+        if RC_name in RC_dict:
+            RC_dict.pop(RC_name)
+            print(f"{RC_name} has been removed from the platform.")
+        else:
+            print("Not found.")
+        
+class RC_ManageAddresses:
+    def __init__(self, strategy):
+        self.strategy = strategy
+
+    def setStrategy(self, strategy):    
+        self.strategy = strategy
+
+    def startStrategy(self, RC_name, address):
+        self.strategy.modify(RC_name,address)
+
 #client
-facade = SlideFacade()
-facade.creating_slide()
-facade.searching_slide()
+slidefacade = SlideFacade()
+#slidefacade.creating_slide()
+#slidefacade.searching_slide()
+
+choice = input("Remove or modify address: ")
+choice = choice.lower()
+if choice == "remove":
+    manageRC = RC_ManageAddresses(RC_RemoveAddressStrategy())
+    RC_name = input("Enter your Recycle Centre name: ")
+    address = "None"
+    manageRC.startStrategy(RC_name, address)
+    for RC_names,RC_addresses in RC_dict.items():
+        print(f"RC Name: {RC_names} , RC Address: {RC_addresses}")
+
+elif choice == "modify":
+    manageRC = RC_ManageAddresses(RC_ModifyAddressStrategy())
+    RC_name = input("Enter your Recycle Centre name: ")
+    address = input("Modifying address: ")
+    manageRC.startStrategy(RC_name, address)
+    for RC_names,RC_addresses in RC_dict.items():
+        print(f"RC Name: {RC_names} , RC Address: {RC_addresses}")
+
+else:
+    print("you didnt choose one of it")
+    pass
