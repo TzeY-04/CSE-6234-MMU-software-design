@@ -96,7 +96,7 @@ class RemoveSlide:
     def remove_slide(self):
        pass
 
-class Facade:
+class SlideFacade:
     def __init__(self):
         self.createslide = CreateSlide()
         self.searchslide = SearchSlide()
@@ -112,6 +112,6 @@ class Facade:
         self.removeslide.remove_slide()
 
 #client
-facade = Facade()
+facade = SlideFacade()
 facade.creating_slide()
 facade.searching_slide()
