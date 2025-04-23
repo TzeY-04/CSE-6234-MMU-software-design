@@ -148,28 +148,6 @@ slidefacade = SlideFacade()
 #slidefacade.creating_slide()
 #slidefacade.searching_slide()
 
-choice = input("Remove or modify address: ")
-choice = choice.lower()
-if choice == "remove":
-    manageRC = RC_ManageAddresses(RC_RemoveAddressStrategy())
-    RC_name = input("Enter your Recycle Centre name: ")
-    address = "None"
-    manageRC.startStrategy(RC_name, address)
-    for RC_names,RC_addresses in RC_dict.items():
-        print(f"RC Name: {RC_names} , RC Address: {RC_addresses}")
-
-elif choice == "modify":
-    manageRC = RC_ManageAddresses(RC_ModifyAddressStrategy())
-    RC_name = input("Enter your Recycle Centre name: ")
-    address = input("Modifying address: ")
-    manageRC.startStrategy(RC_name, address)
-    for RC_names,RC_addresses in RC_dict.items():
-        print(f"RC Name: {RC_names} , RC Address: {RC_addresses}")
-
-else:
-    print("you didnt choose one of it")
-    pass
-
 class Observer():
     def update(self , recycle_centre , address):
         pass
@@ -199,10 +177,41 @@ notifier = RecycleCentreNotifier()
 
 admin1= adminObserver("Admin A")
 admin2= adminObserver("Admin B")
-notifier.add_observer(admin1)
-notifier.add_observer(admin2)
+
+while True:
+    admin = input("Enter a name for admin:(press Q to quit) ").lower()
+    if (admin and admin != "q"):
+        add_admin = adminObserver(admin)
+        notifier.add_observer(add_admin)
+    else:
+        break
+        
 
 rc_name = input("Enter new Recycle Centre name: ")
 rc_address = input("Enter address: ")
 
 notifier.notify_observer(rc_name,rc_address)
+
+choice = input("Remove or modify address: ")
+choice = choice.lower()
+if choice == "remove":
+    manageRC = RC_ManageAddresses(RC_RemoveAddressStrategy())
+    RC_name = input("Enter your Recycle Centre name: ")
+    address = "None"
+    manageRC.startStrategy(RC_name, address)
+    for RC_names,RC_addresses in RC_dict.items():
+        print(f"RC Name: {RC_names} , RC Address: {RC_addresses}")
+
+elif choice == "modify":
+    manageRC = RC_ManageAddresses(RC_ModifyAddressStrategy())
+    RC_name = input("Enter your Recycle Centre name: ")
+    address = input("Modifying address: ")
+    manageRC.startStrategy(RC_name, address)
+    for RC_names,RC_addresses in RC_dict.items():
+        print(f"RC Name: {RC_names} , RC Address: {RC_addresses}")
+
+else:
+    print("you didnt choose one of it")
+    pass
+
+
