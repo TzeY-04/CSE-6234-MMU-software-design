@@ -148,6 +148,50 @@ slidefacade = SlideFacade()
 #slidefacade.creating_slide()
 #slidefacade.searching_slide()
 
+class Observer():
+    def update(self , recycle_centre , address):
+        pass
+    
+class RecycleCentreNotifier:
+    def __init__(self):
+        self.observers = []
+
+    def add_observer(self,observer):
+        self.observers.append(observer)
+
+    def remove_observer(self,observer):
+        self.observers.remove(observer)
+
+    def notify_observer(self, recycle_centre_name, address):
+        for observer in self.observers:
+            observer.notify(recycle_centre_name, address)
+
+class adminObserver(Observer):
+    def __init__(self , admin_name):
+        self.admin_name = admin_name
+
+    def notify(self, recycle_centre_name , address):
+        print(f"[{self.admin_name}] Notification: New Recycle Centre Submitted - {recycle_centre_name} at {address}")
+
+notifier = RecycleCentreNotifier()
+
+admin1= adminObserver("Admin A")
+admin2= adminObserver("Admin B")
+
+while True:
+    admin = input("Enter a name for admin:(press Q to quit) ").lower()
+    if (admin and admin != "q"):
+        add_admin = adminObserver(admin)
+        notifier.add_observer(add_admin)
+    else:
+        break
+        
+
+rc_name = input("Enter new Recycle Centre name: ")
+rc_address = input("Enter address: ")
+
+notifier.notify_observer(rc_name,rc_address)
+
 choice = input("Remove or modify address: ")
 choice = choice.lower()
 if choice == "remove":
@@ -169,3 +213,5 @@ elif choice == "modify":
 else:
     print("you didnt choose one of it")
     pass
+
+
