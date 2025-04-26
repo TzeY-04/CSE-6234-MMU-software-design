@@ -2,11 +2,14 @@ class Slide:
     def createSlide(self, Title):
         pass
 
+    def removeSlide(self, Title):
+        pass
+
     def showSlide(self):
         pass
 
 paperslide = ["Slide Title 3","Slide Title 4"]
-
+# using factory pattern to modify paperslide
 class paperSlide(Slide):
     def __init__(self):
         self.observers = []
@@ -18,13 +21,17 @@ class paperSlide(Slide):
         #for i in self.paperslide:
         #    print(i)
 
+    def removeSlide(self, Title):
+        print(f"Removing...: {Title}")
+        paperslide.remove(Title)
+
     def showSlide(self):
         print(f"The slide about paper : ")
         for i in paperslide:
             print(i)
 
 plasticslide = ["Slide Title 1","Slide Title 2"]
-
+# using factory pattern to modify plasticslide
 class plasticSlide(Slide):
     def __init__(self):
         self.observers = []
@@ -35,6 +42,10 @@ class plasticSlide(Slide):
         
         #for i in self.plasticslide:
         #    print(i)
+
+    def removeSlide(self, Title):
+        print(f"Removing...: {Title}")
+        plasticslide.remove(Title)
 
     def showSlide(self):
         print(f"The slide about plastic : ")
@@ -69,20 +80,32 @@ class SlideFunctionality(SlideManagement):
     def showRelatedSlide(self):
         self.searchSlide.showSlide()
         
-
 # using factory pattern to create slide
+# using facade pattern to run specific function (create slide)
 class CreateSlide(Slide):
     def create_slide(self):
         print("Creating slide...")
         factory = SlideFactory()
         slideType = input("Enter a type (paper/plastic): ")
         slide = factory.get_Type(slideType)
-        slideTitle = input("Enter your slide Title: ")
+        slideTitle = input("Enter a slide Title for the slide: ")
         slide.createSlide(slideTitle)
         print("Slide Created \n")
 
+# using factory pattern to remove slide
+# using facade pattern to run specific function (remove slide)
+class RemoveSlide(Slide):
+    def remove_slide(self):
+        print("Removing slide...")
+        factory = SlideFactory()
+        slideType = input("Enter a type (paper/plastic): ")
+        slide = factory.get_Type(slideType)
+        slideTitle = input("Enter a slide Title to remove the slide: ")
+        slide.removeSlide(slideTitle)
+        print("Slide Removed \n")
 
 # using bridge pattern to search slide
+# using facade pattern to run specific function (searchslide)
 class SearchSlide:
     def search_slide(self):
         print("Searching slide...")
@@ -91,10 +114,6 @@ class SearchSlide:
         slide = factory.get_Type(findType)
         searchingSlide = SlideFunctionality(slide)
         searchingSlide.showRelatedSlide()
-
-class RemoveSlide:
-    def remove_slide(self):
-       pass
 
 class SlideFacade:
     def __init__(self):
@@ -105,11 +124,11 @@ class SlideFacade:
     def creating_slide(self):
         self.createslide.create_slide()
 
-    def searching_slide(self):
-        self.searchslide.search_slide()
-
     def removing_slide(self):
         self.removeslide.remove_slide()
+
+    def searching_slide(self):
+        self.searchslide.search_slide()
 
 RC_dict = {
     "Ali Recycle Centre": "Taman Tasik Lolo",
@@ -143,11 +162,6 @@ class RC_ManageAddresses:
     def startStrategy(self, RC_name, address):
         self.strategy.modify(RC_name,address)
 
-#client
-slidefacade = SlideFacade()
-#slidefacade.creating_slide()
-#slidefacade.searching_slide()
-
 class Observer():
     def update(self , recycle_centre , address):
         pass
@@ -173,11 +187,21 @@ class adminObserver(Observer):
     def notify(self, recycle_centre_name , address):
         print(f"[{self.admin_name}] Notification: New Recycle Centre Submitted - {recycle_centre_name} at {address}")
 
+
+
+
+
+
+#facade client code 
+slidefacade = SlideFacade()
+#slidefacade.creating_slide()
+#slidefacade.searching_slide()
+slidefacade.removing_slide()
+
+
+"""
+#Observer client code
 notifier = RecycleCentreNotifier()
-
-admin1= adminObserver("Admin A")
-admin2= adminObserver("Admin B")
-
 while True:
     admin = input("Enter a name for admin:(press Q to quit) ").lower()
     if (admin and admin != "q"):
@@ -186,7 +210,6 @@ while True:
     else:
         break
         
-
 rc_name = input("Enter new Recycle Centre name: ")
 rc_address = input("Enter address: ")
 
@@ -194,6 +217,10 @@ notifier.notify_observer(rc_name,rc_address)
 
 choice = input("Remove or modify address: ")
 choice = choice.lower()
+"""
+
+"""
+#Strategy client code
 if choice == "remove":
     manageRC = RC_ManageAddresses(RC_RemoveAddressStrategy())
     RC_name = input("Enter your Recycle Centre name: ")
@@ -213,5 +240,5 @@ elif choice == "modify":
 else:
     print("you didnt choose one of it")
     pass
-
+"""
 
