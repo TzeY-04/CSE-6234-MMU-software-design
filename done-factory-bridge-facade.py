@@ -82,7 +82,7 @@ class SlideFunctionality(SlideManagement):
         
 # using factory pattern to create slide
 # using facade pattern to run specific function (create slide)
-class CreateSlide(Slide):
+class CreateSlide:
     def create_slide(self):
         print("Creating slide...")
         factory = SlideFactory()
@@ -94,7 +94,7 @@ class CreateSlide(Slide):
 
 # using factory pattern to remove slide
 # using facade pattern to run specific function (remove slide)
-class RemoveSlide(Slide):
+class RemoveSlide:
     def remove_slide(self):
         print("Removing slide...")
         factory = SlideFactory()
