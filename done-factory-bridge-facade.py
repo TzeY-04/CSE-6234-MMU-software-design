@@ -5,7 +5,7 @@ class Slide:
     def removeSlide(self, Title):
         pass
 
-    def showSlide(self):
+    def searchSlide(self):
         pass
 
 paperslide = ["Slide Title 3","Slide Title 4"]
@@ -25,7 +25,7 @@ class paperSlide(Slide):
         print(f"Removing...: {Title}")
         paperslide.remove(Title)
 
-    def showSlide(self):
+    def searchSlide(self):
         print(f"The slide about paper : ")
         for i in paperslide:
             print(i)
@@ -47,7 +47,7 @@ class plasticSlide(Slide):
         print(f"Removing...: {Title}")
         plasticslide.remove(Title)
 
-    def showSlide(self):
+    def searchSlide(self):
         print(f"The slide about plastic : ")
         for i in self.plasticslide:
             print(i)
@@ -69,7 +69,7 @@ class canSlide(Slide):
         print(f"Removing...: {Title}")
         canslide.remove(Title)
 
-    def showSlide(self):
+    def searchSlide(self):
         print(f"The slide about plastic : ")
         for i in self.canslide:
             print(i)
@@ -95,15 +95,15 @@ class SlideManagement:
     def __init__(self, searchSlide):
         self.searchSlide = searchSlide
 
-    def showRelatedSlide(self):
+    def searchRelatedSlide(self):
         pass
 
 class SlideFunctionality(SlideManagement):
     def __init__(self, searchSlide):
         super().__init__(searchSlide)
 
-    def showRelatedSlide(self):
-        self.searchSlide.showSlide()
+    def searchRelatedSlide(self):
+        self.searchSlide.searchSlide()
         
 # using factory pattern to create slide
 # using facade pattern to run specific function (create slide)
@@ -138,7 +138,7 @@ class SearchSlide:
         findType = input("Enter a type (paper/plastic): ")
         slide = factory.get_Type(findType)
         searchingSlide = SlideFunctionality(slide)
-        searchingSlide.showRelatedSlide()
+        searchingSlide.searchRelatedSlide()
 
 class SlideFacade:
     def __init__(self):
