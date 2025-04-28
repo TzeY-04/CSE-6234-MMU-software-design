@@ -18,7 +18,7 @@ class paperSlide(Slide):
         print(f"Title is {Title}")
         paperslide.append(Title)
         
-        #for i in self.paperslide:
+        #for i in paperslide:
         #    print(i)
 
     def removeSlide(self, Title):
@@ -40,7 +40,7 @@ class plasticSlide(Slide):
         print(f"Title is {Title}")
         plasticslide.append(Title)
         
-        #for i in self.plasticslide:
+        #for i in plasticslide:
         #    print(i)
 
     def removeSlide(self, Title):
@@ -50,6 +50,28 @@ class plasticSlide(Slide):
     def showSlide(self):
         print(f"The slide about plastic : ")
         for i in self.plasticslide:
+            print(i)
+
+canslide = ["Slide Title 5","Slide Title 6"]
+# using factory pattern to modify canslide
+class canSlide(Slide):
+    def __init__(self):
+        self.observers = []
+
+    def createSlide(self, Title):
+        print(f"Title is {Title}")
+        canslide.append(Title)
+        
+        #for i in canslide:
+        #    print(i)
+
+    def removeSlide(self, Title):
+        print(f"Removing...: {Title}")
+        canslide.remove(Title)
+
+    def showSlide(self):
+        print(f"The slide about plastic : ")
+        for i in self.canslide:
             print(i)
 
 class SlideFactory:
@@ -63,7 +85,10 @@ class SlideFactory:
             return paperSlide()
         elif slide_type == "plastic":
             return plasticSlide()
+        elif slide_type == "can":
+            return canSlide()
         else:
+            print("Selected type does not exist")
             return None
 
 class SlideManagement:
@@ -194,9 +219,16 @@ class adminObserver(Observer):
 
 #facade client code 
 slidefacade = SlideFacade()
-#slidefacade.creating_slide()
-#slidefacade.searching_slide()
-slidefacade.removing_slide()
+action_slide = input("Choose an action to modify slides: ")
+action_slide.lower()
+if action_slide == "create":
+    slidefacade.creating_slide()
+elif action_slide == "search":
+    slidefacade.searching_slide()
+elif action_slide == "remove":
+    slidefacade.removing_slide()
+else:
+    print("Selected action does not exist")
 
 
 """
