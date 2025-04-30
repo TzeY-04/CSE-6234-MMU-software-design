@@ -160,6 +160,15 @@ RC_dict = {
     "Abu Recycle Centre": "Taman Putra Lili",
     "New Recycle Centre": "Taman Sauda Lala"
 }
+verified_RC_dict = {
+    "Tui Recycle (verified)": "Puchong",
+    "UOI Recycle (verified)": "Taman Putri Kajang"
+}
+members = {
+    "Ken" , "John" , "Ren" , "Tim"
+}
+
+admin = "Ali"
 
 class RC_ManageAddressStrategy:
     def modify(self, RC_name ,address):
@@ -187,11 +196,18 @@ class RC_ManageAddresses:
     def startStrategy(self, RC_name, address):
         self.strategy.modify(RC_name,address)
 
-class Observer():
-    def update(self , recycle_centre , address):
+class Observer():# Observer
+    def notify(self , recycle_centre , address):
+
+class Subject(): #Subject
+    def add_observer(self,observer):
         pass
-    
-class RecycleCentreNotifier:
+    def remove_observer(self,observer):
+        pass
+    def notify_observer(self , recycle_centre_name, address):
+        pass
+
+class RecycleCentreNotifier(Subject): # concrete subject
     def __init__(self):
         self.observers = []
 
@@ -205,13 +221,49 @@ class RecycleCentreNotifier:
         for observer in self.observers:
             observer.notify(recycle_centre_name, address)
 
-class adminObserver(Observer):
-    def __init__(self , admin_name):
-        self.admin_name = admin_name
+class memberObserver(Observer): # concrete observer
+    def __init__(self , member_name):
+        self.member_name = member_name
 
     def notify(self, recycle_centre_name , address):
-        print(f"[{self.admin_name}] Notification: New Recycle Centre Submitted - {recycle_centre_name} at {address}")
+        print(f"[{self.member_name}] Notification: New Recycle Centre Submitted - {recycle_centre_name} at {address} verified by {admin}")
 
+
+#facade client code
+
+"""
+slidefacade = SlideFacade()
+action_slide = input("Choose an action to modify slides: ")
+action_slide.lower()
+if action_slide == "create":
+    slidefacade.creating_slide()
+elif action_slide == "search":
+    slidefacade.searching_slide()
+elif action_slide == "remove":
+    slidefacade.removing_slide()
+else:
+    print("Selected action does not exist")
+
+
+"""
+
+
+
+#Observer client code
+notifier = RecycleCentreNotifier()
+
+for member in members:
+    add_member=memberObserver(member)
+    notifier.add_observer(add_member)
+
+
+RC_name = "abc" #那个是在verify function里面的时候叫observer(RC_name,RC_address) pass过去之后你再set RC_name跟address
+address = "Kajang"
+
+notifier.notify_observer(RC_name,address) 
+
+
+=======
 
 
 
@@ -272,4 +324,3 @@ else:
     print("you didnt choose one of it")
     pass
 """
-
