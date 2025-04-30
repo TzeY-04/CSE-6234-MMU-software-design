@@ -246,12 +246,11 @@ rc_name = input("Enter new Recycle Centre name: ")
 rc_address = input("Enter address: ")
 
 notifier.notify_observer(rc_name,rc_address)
+"""
 
+"""
 choice = input("Remove or modify address: ")
 choice = choice.lower()
-"""
-
-"""
 #Strategy client code
 if choice == "remove":
     manageRC = RC_ManageAddresses(RC_RemoveAddressStrategy())
