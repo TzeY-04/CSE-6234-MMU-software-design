@@ -149,7 +149,7 @@ slidefacade = SlideFacade()
 #slidefacade.searching_slide()
 
 class Observer():
-    def update(self , recycle_centre , address):
+    def notify(self , recycle_centre , address):
         pass
     
 class RecycleCentreNotifier:
