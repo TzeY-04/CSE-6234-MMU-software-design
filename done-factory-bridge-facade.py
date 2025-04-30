@@ -198,8 +198,7 @@ class RC_ManageAddresses:
 
 class Observer():# Observer
     def notify(self , recycle_centre , address):
-        pass
-    
+
 class Subject(): #Subject
     def add_observer(self,observer):
         pass
@@ -245,6 +244,7 @@ elif action_slide == "remove":
 else:
     print("Selected action does not exist")
 
+
 """
 
 
@@ -262,6 +262,43 @@ address = "Kajang"
 
 notifier.notify_observer(RC_name,address) 
 
+
+=======
+
+
+
+
+
+#facade client code 
+slidefacade = SlideFacade()
+action_slide = input("Choose an action to modify slides: ")
+action_slide.lower()
+if action_slide == "create":
+    slidefacade.creating_slide()
+elif action_slide == "search":
+    slidefacade.searching_slide()
+elif action_slide == "remove":
+    slidefacade.removing_slide()
+else:
+    print("Selected action does not exist")
+
+
+"""
+#Observer client code
+notifier = RecycleCentreNotifier()
+while True:
+    admin = input("Enter a name for admin:(press Q to quit) ").lower()
+    if (admin and admin != "q"):
+        add_admin = adminObserver(admin)
+        notifier.add_observer(add_admin)
+    else:
+        break
+        
+rc_name = input("Enter new Recycle Centre name: ")
+rc_address = input("Enter address: ")
+
+notifier.notify_observer(rc_name,rc_address)
+"""
 
 """
 choice = input("Remove or modify address: ")
