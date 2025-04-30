@@ -160,10 +160,7 @@ RC_dict = {
     "Abu Recycle Centre": "Taman Putra Lili",
     "New Recycle Centre": "Taman Sauda Lala"
 }
-verified_RC_dict = {
-    "Tui Recycle (verified)": "Puchong",
-    "UOI Recycle (verified)": "Taman Putri Kajang"
-}
+
 members = {
     "Ken" , "John" , "Ren" , "Tim"
 }
