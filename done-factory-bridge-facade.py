@@ -228,7 +228,7 @@ class memberObserver(Observer): # concrete observer
 
 #facade client code
 
-"""
+
 slidefacade = SlideFacade()
 action_slide = input("Choose an action to modify slides: ")
 action_slide.lower()
@@ -242,10 +242,8 @@ else:
     print("Selected action does not exist")
 
 
+
 """
-
-
-
 #Observer client code
 notifier = RecycleCentreNotifier()
 
@@ -278,7 +276,7 @@ elif action_slide == "remove":
     slidefacade.removing_slide()
 else:
     print("Selected action does not exist")
-
+"""
 
 """
 #Observer client code
